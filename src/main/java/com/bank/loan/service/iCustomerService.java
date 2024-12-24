@@ -6,7 +6,7 @@ import com.bank.loan.model.Customer;
 
 public interface iCustomerService {
 
-	public Integer doLogin(String email, String password);
+	public String doLogin(String email, String password);
 
 	public Customer addCustomer(Customer c);
 

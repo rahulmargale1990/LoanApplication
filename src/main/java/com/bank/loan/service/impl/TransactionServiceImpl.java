@@ -41,7 +41,7 @@ public class TransactionServiceImpl implements iTransactionService {
 	public Transaction addTransaction(Transaction transaction) {
 		int loanId = transaction.getLoan().getLoanId();
 		Loan loan = loanDao.findById(loanId).orElseThrow(() -> new LoanNotFoundException("Loan Not Found: " + loanId));
-		loan.addTransaction(transaction);
+		//loan.addTransaction(transaction);
 		try {
 			return transactionDao.save(transaction);
 		} catch (Exception e) {

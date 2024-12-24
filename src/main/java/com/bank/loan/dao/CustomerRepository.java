@@ -17,8 +17,8 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 	@Query("select c from Customer c where c.email=?1 or c.adhaar=?2 or c.pan=?3 or c.phone=?4")
 	Customer checkCustomer(String email, long adhaar, String pan, long phone);
 
-	@Query("select c.id from Customer c where c.email=?1 and c.password=?2")
-	Integer findCustomerByEmailAndPassword(String email, String password);
+	@Query("select c.fname from Customer c where c.email=?1 and c.password=?2")
+	String findCustomerByEmailAndPassword(String email, String password);
 
 	//Object findById(int id);
 

@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -28,13 +29,23 @@ public class Loan implements Serializable {
 	private String loanType;
 	private int duration;
 	private double monthlyEMI;
+	private String flag="Active";
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 	@ManyToOne
-	@JoinColumn(name = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "id", referencedColumnName="id")
 	private Customer customer;
 
 	@OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Transaction> transactions = new ArrayList<Transaction>();
+	private List<Payment> payment=new ArrayList<Payment>();
+	//private List<Transaction> transactions = new ArrayList<Transaction>();
 
 	public Loan() {
 
@@ -80,7 +91,7 @@ public class Loan implements Serializable {
 		this.monthlyEMI = monthlyEMI;
 	}
 
-	public Customer getCustomer() {
+	public Customer Customerobj() {
 		return customer;
 	}
 
@@ -88,16 +99,29 @@ public class Loan implements Serializable {
 		this.customer = customer;
 	}
 
-	public List<Transaction> getTransactions() {
-		return transactions;
+//	public List<Transaction> getTransactions() {
+//		return transactions;
+//	}
+//
+//	public void setTransactions(List<Transaction> transactions) {
+//		this.transactions = transactions;
+//	}
+
+//	public void addTransaction(Transaction transation) {
+//		transation.setLoan(this);
+//		this.getTransactions().add(transation);
+//	}
+	public List<Payment> getPayment() {
+		return payment;
 	}
 
-	public void setTransactions(List<Transaction> transactions) {
-		this.transactions = transactions;
+	public void setPayment(List<Payment> payment) {
+		this.payment = payment;
+	}
+	public void addPayment(Payment pay) {
+		pay.setLoan(this);
+		this.getPayment().add(pay);
 	}
 
-	public void addTransaction(Transaction transation) {
-		transation.setLoan(this);
-		this.getTransactions().add(transation);
-	}
+	
 }

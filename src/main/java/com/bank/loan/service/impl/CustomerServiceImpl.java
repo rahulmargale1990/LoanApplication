@@ -31,18 +31,23 @@ public class CustomerServiceImpl implements iCustomerService {
 		if (customer != null) {
 			throw new CustomerAlreadyRegisteredException("Customer Already Registered: " + customer.getId());
 		}
-		return customerDao.save(customer);
+		return customerDao.save(c);
 	}
 
 	@Override
-	public Integer doLogin(String email, String password) {
-		Integer customerId = null;
+	public String doLogin(String email, String password) {
+		String customeruser = null;
 		try {
-			customerId = customerDao.findCustomerByEmailAndPassword(email, password);
-			logger.info("Customer: " + customerId + " Logged In Successfully");
-			return customerId;
+			customeruser = customerDao.findCustomerByEmailAndPassword(email, password);
+			logger.info("Customer: " + customeruser + " Logged In Successfully");
+			if(customeruser.isEmpty()) {
+				return "Incorrect Username or Password";
+			}else {
+				return customeruser+" is successfully Login";
+				
+			}
 		} catch (Exception e) {
-			throw new CustomerNotFoundException("Customer Not Found: " + customerId);
+			throw new CustomerNotFoundException("Customer Not Found or Invalid Credentials ");
 		}
 	}
 

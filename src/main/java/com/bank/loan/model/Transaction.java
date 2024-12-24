@@ -17,25 +17,31 @@ public class Transaction implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int transId;
+	private int id;
 	private Timestamp transTime;
 	private String mssg;
 
 	@ManyToOne
-	@JoinColumn(name = "loanId", insertable = false, updatable = false)
+	@JoinColumn(name = "loan_id", insertable = false, updatable = false)
 	private Loan loan;
 
 	public Transaction() {
 
 	}
 
-	public int getTransId() {
-		return transId;
+	
+
+	public int getId() {
+		return id;
 	}
 
-	public void setTransId(int transId) {
-		this.transId = transId;
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
+
+
 
 	public Timestamp getTransTime() {
 		return transTime;

@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.bank.loan.exception.CustomerAlreadyRegisteredException;
+import com.bank.loan.exception.CustomerEligibilityException;
 import com.bank.loan.exception.CustomerNotFoundException;
 
 @RestControllerAdvice
@@ -28,6 +29,16 @@ public class CustomerExceptionsHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(CustomerAlreadyRegisteredException.class)
 	public ResponseEntity<Object> handleCustomerAlreadyRegisteredException(CustomerAlreadyRegisteredException ex,
+			WebRequest request) {
+		logger.warn(ex.getMessage());
+		Map<String, Object> body = new LinkedHashMap<>();
+		body.put("timestamp", LocalDateTime.now());
+		body.put("message", ex.getMessage());
+		return new ResponseEntity<Object>(body, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(CustomerEligibilityException.class)
+	public ResponseEntity<Object> handleCustomerEligibilityException(CustomerEligibilityException ex,
 			WebRequest request) {
 		logger.warn(ex.getMessage());
 		Map<String, Object> body = new LinkedHashMap<>();

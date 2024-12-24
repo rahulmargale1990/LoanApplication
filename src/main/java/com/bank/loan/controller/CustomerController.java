@@ -56,8 +56,8 @@ public class CustomerController {
 	// Customer Login
 
 	@PostMapping("/login")
-	public ResponseEntity<Integer> doLogin(@RequestParam String email, @RequestParam String password) {
-		return new ResponseEntity<Integer>(customerService.doLogin(email, password), HttpStatus.OK);
+	public ResponseEntity<String> doLogin(@RequestParam String email, @RequestParam String password) {
+		return new ResponseEntity<String>(customerService.doLogin(email, password), HttpStatus.OK);
 	}
 
 	// Fetching Customer By Customer Id

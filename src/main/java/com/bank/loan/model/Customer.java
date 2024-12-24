@@ -29,12 +29,68 @@ public class Customer implements Serializable {
 	private String email;
 	private String password;
 	private String confirmPassword;
-	private float salary;
+	private double salary;
 	private long adhaar;
 	private String pan;
 	private double walletAmt;
+	private long age;
+	private String occupation;
+    private String nationality;
+    private String residenceType;
+    private int creditScore;
+	private Boolean loanClosed = false;
+	private double maximumEligibleLoanAmount; 
+	//private double requestedLoanAmount;
+	
+	public double getMaximumEligibleLoanAmount() {
+		return maximumEligibleLoanAmount;
+	}
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	public void setMaximumEligibleLoanAmount(double maximumEligibleLoanAmount) {
+		this.maximumEligibleLoanAmount = maximumEligibleLoanAmount;
+	}
+	public String getResidenceType() {
+		return residenceType;
+	}
+
+	public void setResidenceType(String residenceType) {
+		this.residenceType = residenceType;
+	}
+
+	public int getCreditScore() {
+		return creditScore;
+	}
+
+	public void setCreditScore(int creditScore) {
+		this.creditScore = creditScore;
+	}
+
+	public long getAge() {
+		return age;
+	}
+
+	public void setAge(long age) {
+		this.age = age;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Loan> loans = new ArrayList<Loan>();
 
 	public Customer() {
@@ -105,11 +161,11 @@ public class Customer implements Serializable {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public float getSalary() {
+	public double getSalary() {
 		return salary;
 	}
 
-	public void setSalary(float salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 
@@ -148,6 +204,7 @@ public class Customer implements Serializable {
 	// the method below will add Loan to LoansList
 	// also serves the purpose to avoid cyclic references.
 	public void addLoan(Loan loan) {
+		//loan.setId(getId());
 		loan.setCustomer(this); // this will avoid nested cascade
 		this.getLoans().add(loan);
 	}
